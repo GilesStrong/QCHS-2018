@@ -69,13 +69,13 @@ class RotationReflectionBatch(BatchYielder):
                 cut = inData.PRI_jet_num >= 0.9
                 inData.loc[cut, vector + '_pxtmp'] = inData.loc[cut, vector + '_px']*np.cos(inData.loc[cut, 'aug_angle'])-inData.loc[:, vector + '_py']*np.sin(inData.loc[cut, 'aug_angle'])
                 inData.loc[cut, vector + '_py'] = inData.loc[cut, vector + '_py']*np.cos(inData.loc[cut, 'aug_angle'])+inData.loc[:, vector + '_px']*np.sin(inData.loc[cut, 'aug_angle'])
-                inData.loc[:, vector + '_px'] = inData.loc[:, vector + '_pxtmp']
+                inData.loc[cut, vector + '_px'] = inData.loc[cut, vector + '_pxtmp']
 
             elif 'jet_subleading' in vector:
                 cut = inData.PRI_jet_num >= 1.9
                 inData.loc[cut, vector + '_pxtmp'] = inData.loc[cut, vector + '_px']*np.cos(inData.loc[cut, 'aug_angle'])-inData.loc[:, vector + '_py']*np.sin(inData.loc[cut, 'aug_angle'])
                 inData.loc[cut, vector + '_py'] = inData.loc[cut, vector + '_py']*np.cos(inData.loc[cut, 'aug_angle'])+inData.loc[:, vector + '_px']*np.sin(inData.loc[cut, 'aug_angle'])
-                inData.loc[:, vector + '_px'] = inData.loc[:, vector + '_pxtmp']
+                inData.loc[cut, vector + '_px'] = inData.loc[cut, vector + '_pxtmp']
             
             else:
                 inData.loc[:, vector + '_pxtmp'] = inData.loc[:, vector + '_px']*np.cos(inData.loc[:, 'aug_angle'])-inData.loc[:, vector + '_py']*np.sin(inData.loc[:, 'aug_angle'])
