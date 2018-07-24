@@ -1,1 +1,0 @@
-{"loss": "binary_crossentropy", "optimizer": "adam", "lr": 0.001, "amsgrad": false, "beta_1": 0.9}
