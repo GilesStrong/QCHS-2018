@@ -11,13 +11,10 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 sns.set_style("whitegrid")
 
-from ML_Tools.Plotting_And_Evaluation.Plotters import *
-from ML_Tools.General.Misc_Functions import *
-from ML_Tools.General.Metrics import *
-# from Modules.ML_Tools.General.Ensemble_Functions import ensemblePredict, loadModel
-from ML_Tools.General.Batch_Train import getFeature
-
-# from keras.models import Sequential,model_from_json, load_model
+from Modules.ML_Tools_QCHS_Ver.Plotting_And_Evaluation.Plotters import *
+from Modules.ML_Tools_QCHS_Ver.General.Misc_Functions import *
+from Modules.ML_Tools_QCHS_Ver.General.Metrics import *
+from Modules.ML_Tools_QCHS_Ver.General.Batch_Train import getFeature
 
 dirLoc = "../Data/"
 

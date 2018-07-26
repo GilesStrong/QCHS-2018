@@ -7,8 +7,8 @@ import h5py
 
 from sklearn.model_selection import train_test_split, StratifiedKFold, KFold
 
-from ML_Tools.Transformations.HEP_Proc import *
-from ML_Tools.General.PreProc import getPreProcPipes
+from Modules.ML_Tools_QCHS_Ver.Transformations.HEP_Proc import *
+from Modules.ML_Tools_QCHS_Ver.General.PreProc import getPreProcPipes
 
 def importData(dirLoc = "../Data/",
                rotate=False, cartesian=True, mode='OpenData',

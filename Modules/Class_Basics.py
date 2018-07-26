@@ -1,30 +1,7 @@
-# from sklearn.model_selection import StratifiedKFold
-# from sklearn.preprocessing import StandardScaler
-# from sklearn.pipeline import Pipeline
-# from sklearn.decomposition import PCA
-# from sklearn.metrics import roc_auc_score, roc_curve
-
-# from keras.models import Sequential, model_from_json, load_model
-# from keras.layers import Dense, Activation, AlphaDropout, Dropout, BatchNormalization
-# from keras.optimizers import Adam
-# from keras.models import Sequential
-
-# from six.moves import cPickle as pickle
-# import timeit
-# import types
-# import numpy as np
-# import pandas
-
-# #from rep.estimators import XGBoostClassifier
-# from xgboost import XGBClassifier
-
-# from ML_Tools.General.PreProc import *
-# from ML_Tools.General.Ensemble_Functions import *
-# from ML_Tools.Plotting_And_Evaluation.Bootstrap import mpRun
-# from ML_Tools.General.Training import *
-from ML_Tools.General.Batch_Train import *
-from ML_Tools.General.Models import getModel
-from ML_Tools.General.BatchYielder import *
+from Modules.ML_Tools_QCHS_Ver.General.Batch_Train import *
+from Modules.ML_Tools_QCHS_Ver.General.Models import getModel
+from Modules.ML_Tools_QCHS_Ver.General.BatchYielder import *
+from Modules.ML_Tools_QCHS_Ver.General.Activations import *
 
 class RotationReflectionBatch(BatchYielder):
     def __init__(self, header, datafile=None, inputPipe=None,
@@ -67,20 +44,17 @@ class RotationReflectionBatch(BatchYielder):
         for vector in vectors:
             if 'jet_leading' in vector:
                 cut = inData.PRI_jet_num >= 0.9
-                inData.loc[cut, vector + '_pxtmp'] = inData.loc[cut, vector + '_px']*np.cos(inData.loc[cut, 'aug_angle'])-inData.loc[:, vector + '_py']*np.sin(inData.loc[cut, 'aug_angle'])
+                inData.loc[cut, vector + '_px'] = inData.loc[cut, vector + '_px']*np.cos(inData.loc[cut, 'aug_angle'])-inData.loc[:, vector + '_py']*np.sin(inData.loc[cut, 'aug_angle'])
                 inData.loc[cut, vector + '_py'] = inData.loc[cut, vector + '_py']*np.cos(inData.loc[cut, 'aug_angle'])+inData.loc[:, vector + '_px']*np.sin(inData.loc[cut, 'aug_angle'])
-                inData.loc[cut, vector + '_px'] = inData.loc[cut, vector + '_pxtmp']
 
             elif 'jet_subleading' in vector:
                 cut = inData.PRI_jet_num >= 1.9
-                inData.loc[cut, vector + '_pxtmp'] = inData.loc[cut, vector + '_px']*np.cos(inData.loc[cut, 'aug_angle'])-inData.loc[:, vector + '_py']*np.sin(inData.loc[cut, 'aug_angle'])
+                inData.loc[cut, vector + '_px'] = inData.loc[cut, vector + '_px']*np.cos(inData.loc[cut, 'aug_angle'])-inData.loc[:, vector + '_py']*np.sin(inData.loc[cut, 'aug_angle'])
                 inData.loc[cut, vector + '_py'] = inData.loc[cut, vector + '_py']*np.cos(inData.loc[cut, 'aug_angle'])+inData.loc[:, vector + '_px']*np.sin(inData.loc[cut, 'aug_angle'])
-                inData.loc[cut, vector + '_px'] = inData.loc[cut, vector + '_pxtmp']
             
             else:
-                inData.loc[:, vector + '_pxtmp'] = inData.loc[:, vector + '_px']*np.cos(inData.loc[:, 'aug_angle'])-inData.loc[:, vector + '_py']*np.sin(inData.loc[:, 'aug_angle'])
+                inData.loc[:, vector + '_px'] = inData.loc[:, vector + '_px']*np.cos(inData.loc[:, 'aug_angle'])-inData.loc[:, vector + '_py']*np.sin(inData.loc[:, 'aug_angle'])
                 inData.loc[:, vector + '_py'] = inData.loc[:, vector + '_py']*np.cos(inData.loc[:, 'aug_angle'])+inData.loc[:, vector + '_px']*np.sin(inData.loc[:, 'aug_angle'])
-                inData.loc[:, vector + '_px'] = inData.loc[:, vector + '_pxtmp']
     
     def reflect(self, inData, vectors):
         for vector in vectors:
