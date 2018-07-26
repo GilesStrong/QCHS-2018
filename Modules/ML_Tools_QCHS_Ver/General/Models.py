@@ -57,13 +57,13 @@ def getModel(version, nIn, compileArgs, mode, nOut=1):
     elif "modelSwish" in version:
         model.add(Dense(width, input_dim=nIn, kernel_initializer='he_normal', kernel_regularizer=reg))
         if bn == 'pre': model.add(BatchNormalization())
-        model.add(Activation('swish'))
+        model.add(Activation(swish))
         if bn == 'post': model.add(BatchNormalization())
         if do: model.add(Dropout(do))
         for i in range(depth):
             model.add(Dense(width, kernel_initializer='he_normal', kernel_regularizer=reg))
             if bn == 'pre': model.add(BatchNormalization())
-            model.add(Activation('swish'))
+            model.add(Activation(swish))
             if bn == 'post': model.add(BatchNormalization())
             if do: Dropout(do)
     

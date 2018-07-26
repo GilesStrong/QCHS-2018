@@ -1,4 +1,5 @@
 mkdir Data
 wget -O Data/atlas-higgs-challenge-2014-v2.csv.gz http://opendata.cern.ch/record/328/files/atlas-higgs-challenge-2014-v2.csv.gz
 gunzip Data/atlas-higgs-challenge-2014-v2.csv.gz
+export PYTHONPATH=./:$PYTHONPATH
 python Modules/Data_import.py

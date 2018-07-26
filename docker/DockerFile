@@ -12,7 +12,7 @@ RUN mkdir -p /tmp/setup && \
         wget \
     && rm -rf /var/lib/apt/lists/*
 
-RUN pip install --trusted-host pypi.python.org matplotlib==2.1.2 pandas==0.22.0 six numpy==1.14.0 seaborn==0.8.1 jupyter scikit-learn==0.19.1 tensorflow==1.8.0 keras==2.1.6
+RUN pip install --trusted-host pypi.python.org matplotlib==2.1.2 pandas==0.22.0 six numpy==1.14.0 seaborn==0.8.1 jupyter scikit-learn==0.19.1 tensorflow==1.8.0 keras==2.1.6 statsmodels==0.8.0
 
 RUN cd /usr/local && \
     git clone https://github.com/GilesStrong/QCHS-2018 /QCHS-2018 && \
@@ -20,6 +20,7 @@ RUN cd /usr/local && \
     mkdir Data && \
     wget -O Data/atlas-higgs-challenge-2014-v2.csv.gz http://opendata.cern.ch/record/328/files/atlas-higgs-challenge-2014-v2.csv.gz && \
 	gunzip Data/atlas-higgs-challenge-2014-v2.csv.gz && \
+    export PYTHONPATH=./:$PYTHONPATH && \
     python Modules/Data_Import.py
 
 WORKDIR /QCHS-2018
