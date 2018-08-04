@@ -44,7 +44,7 @@ def moveToPtEtaPhi(inData, particle):
             np.random.choice([-1*np.pi, np.pi], inData[(inData[particle + "_px"] < 0) & (inData[particle + "_py"] == 0)].shape[0])
     
 def deltaphi(a, b):
-    return np.pi - np.abs(np.abs(a-b) - np.pi)
+    return np.sign(b-a)*(np.pi - np.abs(np.abs(a-b) - np.pi))
 
 def twist(dphi, deta):
     return np.arctan(np.abs(dphi/deta))
