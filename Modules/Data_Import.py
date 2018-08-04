@@ -61,6 +61,20 @@ def rotateEvent(inData):
     inData['PRI_jet_subleading_phi'] = deltaphi(inData['PRI_lep_phi'], inData['PRI_jet_subleading_phi'])
     inData['PRI_met_phi'] = deltaphi(inData['PRI_lep_phi'], inData['PRI_met_phi'])
     inData['PRI_lep_phi'] = 0
+
+def zFlipEvent(inData):
+    '''Flip event in z-axis such that primary lepton is in positive z-direction'''
+    cut = (inData.PRI_lep_eta < 0)
+    
+    for particle in ['PRI_tau', 'PRI_jet_leading', 'PRI_jet_subleading']:
+        inData.loc[cut, particle + '_eta'] = -inData.loc[cut, particle + '_eta'] 
+
+def xFlipEvent(inData):
+    '''Flip event in x-axis such that (subleading) (leptoninc) tau is in positive x-direction'''
+    cut = (inData.PRI_tau_phi < 0)
+    
+    for particle in ['PRI_jet_leading', 'PRI_jet_subleading', 'PRI_met']:
+        inData.loc[cut, particle + '_phi'] = -inData.loc[cut, particle + '_phi'] 
     
 def convertData(inData, rotate=False, cartesian=True):
     '''Pass data through conversions and drop uneeded columns'''
@@ -70,6 +84,8 @@ def convertData(inData, rotate=False, cartesian=True):
     
     if rotate:
         rotateEvent(inData)
+        zFlipEvent(inData)
+        xFlipEvent(inData)
     
     if cartesian:
         moveToCartesian(inData, 'PRI_tau', drop=True)
