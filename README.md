@@ -15,6 +15,7 @@ Data should be present if running via Binder, otherwise it can be downloaded fro
 ### Locally
 1. `git clone https://github.com/GilesStrong/QCHS-2018`
 1. `cd QCHS-2018`
+1. `git checkout 1.0` (for version that was presented at QCHS)
 1. `mkdir Data`
 1. `wget -O Data/atlas-higgs-challenge-2014-v2.csv.gz http://opendata.cern.ch/record/328/files/atlas-higgs-challenge-2014-v2.csv.gz`
 1. `gunzip Data/atlas-higgs-challenge-2014-v2.csv.gz`
