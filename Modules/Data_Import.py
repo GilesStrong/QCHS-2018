@@ -12,7 +12,7 @@ from Modules.ML_Tools_QCHS_Ver.General.PreProc import getPreProcPipes
 
 def importData(dirLoc = "../Data/",
                rotate=False, cartesian=True, mode='OpenData',
-               valSize=0.2, seed=None):
+               valSize=0.2, seed=None, use_der=True):
     '''Import and split data from CSV(s)'''
     if mode == 'OpenData': #If using data from CERN Open Access
         data = pandas.read_csv(dirLoc + 'atlas-higgs-challenge-2014-v2.csv')
@@ -43,7 +43,13 @@ def importData(dirLoc = "../Data/",
     trainingData.drop(columns=['Label'], inplace=True)
     trainingData['gen_weight_original'] = trainingData['gen_weight'] #gen_weight might be renormalised
 
-    trainFeatures = [x for x in trainingData.columns if 'gen' not in x and x != 'EventId' and 'kaggle' not in x.lower()]
+    print(use_der)
+    trainFeatures = [x for x in trainingData.columns 
+                     if 'gen' not in x 
+                     and x != 'EventId' 
+                     and 'kaggle' not in x.lower()
+                     and ('DER_' not in x or not use_der)]
+        
     trainIndeces, valIndeces = train_test_split([i for i in trainingData.index.tolist()], test_size=valSize, random_state=seed)
     train = trainingData.loc[trainIndeces]
     val = trainingData.loc[valIndeces]
@@ -161,10 +167,10 @@ def prepareSample(inData, mode, inputPipe, normWeights, N, features, dirLoc):
         print ("Saving fold:", i, "of", len(test), "events")
         saveBatch(inData.iloc[test], i, inputPipe, outFile, normWeights, mode, features)
 
-def runDataImport(dirLoc, rotate, cartesian, mode, valSize, seed, nFolds):
+def runDataImport(dirLoc, rotate, cartesian, mode, valSize, seed, nFolds, use_der):
     '''Run through all the stages to save the data into files for training, validation, and testing'''
     #Get Data
-    data = importData(dirLoc, rotate, cartesian, mode, valSize, seed)
+    data = importData(dirLoc, rotate, cartesian, mode, valSize, seed, use_der)
 
     #Standardise and normalise
     inputPipe, _ = getPreProcPipes(normIn=True)
@@ -187,7 +193,8 @@ if __name__ == '__main__':
     parser.add_option("-m", "--mode", dest = "mode", action = "store", default = "OpenData", help = "Using open data or Kaggle data")
     parser.add_option("-v", "--valSize", dest = "valSize", action = "store", default = 0.2, help = "Fraction of data to use for validation")
     parser.add_option("-s", "--seed", dest = "seed", action = "store", default = 1337, help = "Seed for train/val split")
+    parser.add_option("-e", "--extra", dest = "hl", action = "store", default = True, help = "Use HL features")
     parser.add_option("-n", "--nFolds", dest = "nFolds", action = "store", default = 10, help = "Nmber of folds to split data")
     opts, args = parser.parse_args()
 
-    runDataImport(opts.dirLoc, opts.rotate, opts.cartesian, opts.mode, opts.valSize, opts.seed, opts.nFolds)
+    runDataImport(opts.dirLoc, opts.rotate, opts.cartesian, opts.mode, opts.valSize, opts.seed, opts.nFolds, opts.hl)
