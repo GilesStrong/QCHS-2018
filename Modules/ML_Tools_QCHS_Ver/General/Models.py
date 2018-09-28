@@ -1,7 +1,7 @@
 from __future__ import division
 
 from keras.models import Sequential, model_from_json, load_model
-from keras.layers import Dense, Activation, AlphaDropout, Dropout, BatchNormalization
+from keras.layers import Dense, Activation, AlphaDropout, Dropout, BatchNormalization, PReLU
 from keras.optimizers import *
 from keras.regularizers import *
 from keras.models import Sequential
@@ -42,6 +42,19 @@ def getModel(version, nIn, compileArgs, mode, nOut=1):
             model.add(Dense(width, kernel_initializer='he_normal', kernel_regularizer=reg))
             if bn == 'pre': model.add(BatchNormalization())
             model.add(Activation('relu'))
+            if bn == 'post': model.add(BatchNormalization())
+            if do: Dropout(do)
+
+    if "modelPrelu" in version:
+        model.add(Dense(width, input_dim=nIn, kernel_initializer='he_normal', kernel_regularizer=reg))
+        if bn == 'pre': model.add(BatchNormalization())
+        model.add(PReLU())
+        if bn == 'post': model.add(BatchNormalization())
+        if do: model.add(Dropout(do))
+        for i in range(depth):
+            model.add(Dense(width, kernel_initializer='he_normal', kernel_regularizer=reg))
+            if bn == 'pre': model.add(BatchNormalization())
+            model.add(PReLU())
             if bn == 'post': model.add(BatchNormalization())
             if do: Dropout(do)
 
