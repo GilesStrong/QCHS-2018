@@ -23,7 +23,7 @@ Data should be present if running via Binder, otherwise it can be downloaded fro
 	- `conda env update -f binder/environment.yml`
 	- `conda activate QCHS-2018`
 1. `export PYTHONPATH=./:$PYTHONPATH`
-1. `python Modules/Data_import.py`
+1. `python Modules/Data_Import.py`
 1. In order to load saved models:
 	- `export LOC=$(pip show keras | grep Location | cut -d" " -f 2)`
 	- `echo "def swish(x): return x*K.sigmoid(x)" >> $LOC/keras/activations.py`
