@@ -66,14 +66,14 @@ def zFlipEvent(inData):
     '''Flip event in z-axis such that primary lepton is in positive z-direction'''
     cut = (inData.PRI_lep_eta < 0)
     
-    for particle in ['PRI_tau', 'PRI_jet_leading', 'PRI_jet_subleading']:
+    for particle in ['PRI_lep', 'PRI_tau', 'PRI_jet_leading', 'PRI_jet_subleading']:
         inData.loc[cut, particle + '_eta'] = -inData.loc[cut, particle + '_eta'] 
 
 def xFlipEvent(inData):
     '''Flip event in x-axis such that (subleading) (leptoninc) tau is in positive x-direction'''
     cut = (inData.PRI_tau_phi < 0)
     
-    for particle in ['PRI_jet_leading', 'PRI_jet_subleading', 'PRI_met']:
+    for particle in ['PRI_tau', 'PRI_jet_leading', 'PRI_jet_subleading', 'PRI_met']:
         inData.loc[cut, particle + '_phi'] = -inData.loc[cut, particle + '_phi'] 
     
 def convertData(inData, rotate=False, cartesian=True):
