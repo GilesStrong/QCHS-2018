@@ -9,7 +9,7 @@ A system utilising relatively recent concepts, such as cyclical learning-rate sc
 
 Originally presented as an invited talk at the [XIIIth Quark Confinement and the Hadron Spectrum](https://indico.cern.ch/event/648004/) conference at Maynooth University, Ireland, 1-6 August 2018
 
-Data should be present if running via Binder, otherwise it can be downloaded from [here](http://opendata.cern.ch/record/328). Repo includes a copy of my [ML_Tools](https://github.com/GilesStrong/ML_Tools) framework, to ensure future compatibility.
+Data should be present if running via Binder, otherwise it can be downloaded from [here](http://opendata.cern.ch/record/328). Repo includes a copy of my [HEPML_Tools](https://github.com/GilesStrong/hepml_tools) framework, to ensure future compatibility.
 
 ## Running
 ### Locally
