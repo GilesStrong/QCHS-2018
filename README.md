@@ -1,4 +1,5 @@
 [![Binder](https://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/GilesStrong/QCHS-2018/master)
+[![DOI](https://zenodo.org/badge/139851028.svg)](https://zenodo.org/badge/latestdoi/139851028)
 
 # Recent developments in deep-learning applied to open HEP data
 A lot of work done in advancing the performance of deep-learning approaches often takes place in the realms of image recognition - many papers use famous benchmark datasets, such as Cifar or Imagenet, to quantify the advantages their idea offers. However it is not always obvious, when reading such papers, whether the concepts presented can also be applied to problems in other domains and still offer improvements.
